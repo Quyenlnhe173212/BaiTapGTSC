@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace BaiTapGTSC.Models;
+namespace BaiTapGTSC_API.Models;
 
 public partial class AppDbContext : DbContext
 {
@@ -23,9 +23,6 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<QuaTrinhLamViec> QuaTrinhLamViecs { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=172.16.7.236;Database=DevTraining;User Id=Training;Password=Tran8889!@#Gtsc205;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -53,6 +50,7 @@ public partial class AppDbContext : DbContext
                 .HasNoKey()
                 .ToTable("employee_progress");
 
+            entity.Property(e => e.AnnualLeave).HasColumnName("annual_leave");
             entity.Property(e => e.EmployeeCode)
                 .HasMaxLength(10)
                 .IsUnicode(false)
@@ -64,6 +62,7 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("employee_position");
             entity.Property(e => e.EndDate).HasColumnName("end_date");
             entity.Property(e => e.StartDate).HasColumnName("start_date");
+            entity.Property(e => e.YearsOfService).HasColumnName("years_of_service");
         });
 
         modelBuilder.Entity<NhanVien>(entity =>
